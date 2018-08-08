@@ -1,0 +1,12 @@
+ Conexão ODBC: Driver={MySQL ODBC 3.51 Driver}; SERVER=localhost; DATABASE=info8_teste; UID=root;PWD=;
+
+ -- Arquivos gerados em segunda-feira, 19 de junho de 2017 -- 
+ pasta: D:\Projetos DotNet\Gera CRUD TCC\gerados\info8_teste
+cadContato.aspx
+cadContato.aspx.cs
+listarContato.aspx
+listarContato.aspx.cs
+App_Code\Entities\Contato.cs
+UcListarContatoEmail.ascx
+UcListarContatoEmail.ascx.cs
+App_Code\Entities\ContatoEmail.cs

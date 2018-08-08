@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+<!-- ASP.NET ACTION -->
+<crud_group>
+  <group  name="Comum - Listagem e Cadastros Separados">
+    <file_model src="cadCadastro.aspx" out="cad{table_name_camel}.aspx"></file_model>
+    <file_model src="cadCadastro.aspx.cs" out="cad{table_name_camel}.aspx.cs"></file_model>
+    <file_model src="listarCadastro.aspx" out="listar{table_name_camel}.aspx"></file_model>
+    <file_model src="listarCadastro.aspx.cs" out="listar{table_name_camel}.aspx.cs"></file_model>
+    <file_model src="App_Code\Entities\TemplateEntitie.cs" out="App_Code\Entities\{table_name_camel}.cs"></file_model>
+  </group>
+
+  <group  name="Junto - Listagem com Cadastro">
+    <file_model src="cadHorizCadastro.aspx" out="listar{table_name_camel}.aspx"></file_model>
+    <file_model src="cadHorizCadastro.aspx.cs" out="listar{table_name_camel}.aspx.cs"></file_model>
+    <file_model src="App_Code\Entities\TemplateEntitie.cs" out="App_Code\Entities\{table_name_camel}.cs"></file_model>
+  </group>
+
+  <group  name="UserControl - Listagem com Cadastro">
+    <file_model src="UcHorizCadastro.ascx" out="UcListar{table_name_camel}.ascx"></file_model>
+    <file_model src="UcHorizCadastro.ascx.cs" out="UcListar{table_name_camel}.ascx.cs"></file_model>
+    <file_model src="App_Code\Entities\TemplateEntitie.cs" out="App_Code\Entities\{table_name_camel}.cs"></file_model>
+  </group>
+  
+   <group  name="Somente Consulta - So tela com GRID">
+    <file_model src="listarCadastro.aspx" out="listar{table_name_camel}.aspx"></file_model>
+    <file_model src="listarCadastro.aspx.cs" out="listar{table_name_camel}.aspx.cs"></file_model>
+    <file_model src="App_Code\Entities\TemplateEntitie.cs" out="App_Code\Entities\{table_name_camel}.cs"></file_model>
+  </group>
+  
+</crud_group>
+<!-- INPUT COMPONENTES , CREATE YOUR OWN IF YOU NEED -->
+<inputs>
+	<input name="TEXT"></input>
+	<input name="TEXTAREA"></input>
+	<input name="SELECT"></input>
+	<input name="HIDDEN"></input>
+	<input name="CHECKBOX"></input>
+	<input name="CHECKBOXLIST"></input>
+	<input name="LABEL"></input>
+	<input name="RADIO"></input>
+	<input name="RADIOBUTTONLIST"></input>
+	<input name="CODE_AND_NAME_SEARCH"></input>
+</inputs>
+	
+	<!--
+variavéis disponíveis. Avaliable Vars
+
+{label} -> Label configured to input field
+{name} -> name of column
+{name_field} -> name of field on screen
+{name_field_camel}  -> name of column in camel case style
+{type} -> type of value (System.String, System.DateTime.. etc)
+{type_input} -> Type of input field => textarea, radiobuttonList, textbox, label, hidden..
+{table_name} -> name of database's table 
+{table_name_camel} -> name of table in camelcase
+{table_title} -> Title about table
+
+{visible} -> If is visible -> show true or false
+{required} -> If is visible -> show true or false
+{visible_in_html} -> if is not visible show style='display:none' else show nothing.
+{required_in_html} -> if is not visible show style='display:none' else show nothing.
+{maxlength} -> Max size value on parameter
+
+{field_complement} -> complement about field on system.
+
+{field_query} -> Query inserted on field, generally used to ListControl
+{field_query_val} -> Name of field returned on query and must be used as value at ListControl
+{field_query_text} -> Name of field returned on query and must be showed at ListControl
+
+{align} -> try get specific align about field type.. Date and Numbers is center, another is Left
+
+::: kind of repeats :::
+
+repeatWhen -> can have any filter suported in dataView .NET - Example:
+ 1=1 -> repeat on all
+ all -> repeat on all
+
+ primarykey = 1   -> just when primary key
+ label = 'Teste' -> just when label = 'Teste'
+ name ='Test' -> just when column name is 'Test'
+ required = 1 -> Just when column is required force indicated value
+ type = 'System.DateTime' -> Just rhen column type is kind 'System.DateTime'
+ visible = true -> Just when column visible has value: true
+ visible_onlist = true -> Just when column [visible_on_list] has value: true
+ type_input ='SELECT' -> just when column type has value: SELECT
+ has_list = 1  -> just when column type list setted.
+ has_query = 1 -> just when column has sql query indicated.
+ 
+ 
+ you can use sql operators as: "and" "or"
+
+ obs: If not default repeatWhen informed, assumed will be ALL
+ Create you on tags and enjoy..
+ 
+ You can use tag "when" condition to various situatios... example
+ <input_fields>
+        <when condition="type_input = 'TEXTAREA' ">
+		     <![CDATA[ 
+			  <textarea name='txt{name_field_camel}' {field_complement}><?=$register["{0}"]?></textarea>
+			  <span class='required' {required_in_html}> * </span> 
+		      ]]>
+		</when>
+        <when condition="type_input = 'TEXTBOX' ">
+		     <![CDATA[ 
+			  <input type='text' name='txt{name_field_camel}' {field_complement} value="<?=$register["{0}"]?>" />
+			    <span class='required' {required_in_html}> * </span> 
+		      ]]>
+		</when>
+ </input_fields>
+ 
+
+ 
+-->
+<!-- Most Genius routine are here-->
+<actions>
+  <!-- Campos que são mostrados na tela -->
+	<input_fields >
+		<when condition="type_input = 'TEXTAREA' ">
+			<![CDATA[ 
+			  <asp:TextBox ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao" {field_complement}
+                   TextMode="MultiLine"></asp:TextBox>
+		      ]]>
+		</when>
+		<when condition="type_input = 'TEXT' and type ='System.DateTime' ">
+			<![CDATA[ 
+			  <asp:TextBox ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao" Width="90px"
+                     MaxLength="10"></asp:TextBox>
+					 
+					 <ajaxToolkit:CalendarExtender
+                       Format="dd/MM/yyyy" ID="CalendarExtender_{name}" 
+                       runat="server"  Enabled="True"
+                         TargetControlID="txt{name_field_camel}"></ajaxToolkit:CalendarExtender>
+					 
+		      ]]>
+		</when>		
+		<when condition="type_input = 'TEXT' ">
+			<![CDATA[ 
+			  <asp:TextBox ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao" {field_complement}
+                     MaxLength="{maxlength}"></asp:TextBox>
+		      ]]>
+		</when>
+		<when condition="type_input = 'CHECKBOX' ">
+			<![CDATA[ 
+			  <asp:CheckBox ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao" {field_complement}
+                     ></asp:CheckBox>
+		      ]]>
+		</when>
+		<when condition="type_input = 'CHECKBOXLIST' ">
+			<![CDATA[ 
+			  <asp:CheckBoxList ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao"  {field_complement}
+                     ></asp:CheckBoxList>
+		      ]]>
+		</when>
+		<when condition="type_input = 'SELECT' ">
+			<![CDATA[ 
+			  <asp:DropDownList ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao" {field_complement}
+                     ></asp:DropDownList>
+		      ]]>
+		</when>
+		<when condition="type_input = 'RADIOBUTTONLIST' ">
+			<![CDATA[ 
+			  <asp:RadioButtonList ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao" RepeatDirection="Horizontal" {field_complement}
+                     ></asp:RadioButtonList>
+		      ]]>
+		</when>
+
+		<when condition="type_input = 'HIDDEN' ">
+			<![CDATA[ 
+			  <asp:HiddenField ID="txt{name_field_camel}" runat="server"  
+                     ></asp:HiddenField>
+		      ]]>
+		</when>
+		<when condition="type_input = 'LABEL' ">
+			<![CDATA[ 
+			  <asp:Label ID="txt{name_field_camel}" runat="server"  
+                    CssClass="lbDados" ></asp:Label>
+		      ]]>
+		</when>
+		<!-- IN THE LAST, GET FORMAT ABOUT THE VALUES should by showed // Calling when result with #when# -->
+		<format>
+			<![CDATA[ 
+			<tr {visible_in_html}  id="tr_{name_field}" runat="server" >
+			    <td>{label}<span class="campoObrigatorio" {required_in_html}> * </span>
+				</td>
+				
+				<td>#when#
+				</td>
+			
+			</tr>
+			
+			 ]]>
+		</format>
+	</input_fields>
+
+  <!--Campos que são mostrados numa listagem -->
+  <tdgridform>
+  
+    <when condition="primarykey = 0 and type_input = 'TEXTAREA' ">
+      <![CDATA[ 
+			  <asp:TextBox ID="txt{name_field_camel}" runat="server"   CssClass="txtPadrao" {field_complement}
+                   TextMode="MultiLine" Visible="<%# !(bool)this.Consulta %>"></asp:TextBox>
+                   
+		      ]]>
+    </when>
+    <when condition="primarykey = 0 and  type_input = 'TEXT' and type ='System.DateTime' ">
+      <![CDATA[ 
+			  <asp:TextBox ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao" Width="90px"
+                     MaxLength="10" Visible="<%# !(bool)this.Consulta %>"></asp:TextBox>
+					 
+					 <ajaxToolkit:CalendarExtender
+                       Format="dd/MM/yyyy" ID="CalendarExtender_{name}" 
+                       runat="server"  Enabled="True"
+                         TargetControlID="txt{name_field_camel}"></ajaxToolkit:CalendarExtender>
+					 
+		      ]]>
+    </when>
+    <when condition="primarykey = 0 and  type_input = 'TEXT' ">
+      <![CDATA[ 
+			  <asp:TextBox ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao" {field_complement}
+                     MaxLength="{maxlength}" Visible="<%# !(bool)this.Consulta %>"></asp:TextBox>
+		      ]]>
+    </when>
+    <when condition="primarykey = 0 and  type_input = 'CHECKBOX' ">
+      <![CDATA[ 
+			  <asp:CheckBox ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao" {field_complement}
+                     Visible="<%# !(bool)this.Consulta %>"></asp:CheckBox>
+		      ]]>
+    </when>
+    <when condition="primarykey = 0 and  type_input = 'SELECT'  ">
+      <![CDATA[ 
+			  <asp:DropDownList ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao"  {field_complement}
+                     Visible="<%# !(bool)this.Consulta %>"></asp:DropDownList>
+		      ]]>
+    </when>
+    <when condition="primarykey = 0 and  type_input = 'CHECKBOXLIST'  ">
+      <![CDATA[ 
+			  <asp:CheckBoxList ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao" RepeatDirection="Horizontal" {field_complement}
+                     Visible="<%# !(bool)this.Consulta %>"></asp:CheckBoxList>
+		      ]]>
+    </when>
+    <when condition="primarykey = 0 and  type_input = 'RADIOBUTTONLIST' ">
+      <![CDATA[ 
+			  <asp:RadioButtonList ID="txt{name_field_camel}" runat="server"  CssClass="txtPadrao" RepeatDirection="Horizontal" {field_complement}
+                     Visible="<%# !(bool)this.Consulta %>"></asp:RadioButtonList>
+		      ]]>
+    </when>
+
+    <when condition="primarykey = 0 and  type_input = 'HIDDEN' ">
+      <![CDATA[ 
+			  <asp:HiddenField ID="txt{name_field_camel}" runat="server"  
+                     Visible="<%# !(bool)this.Consulta %>"></asp:HiddenField>
+		      ]]>
+    </when>
+    <when condition="primarykey = 0 and  type_input = 'LABEL' ">
+      <![CDATA[ 
+			  <asp:Label ID="txt{name_field_camel}" runat="server"  
+                    CssClass="lbDados" Visible="<%# !(bool)this.Consulta %>"></asp:Label>
+		      ]]>
+    </when>
+    <!-- IN THE LAST, GET FORMAT ABOUT THE VALUES should by showed // Calling when result with #when# -->
+    <format>
+      <![CDATA[ 
+			    <asp:TemplateField HeaderText="{label}"><ItemTemplate>
+	               <asp:Label ID="lb_txt{name_field_camel}" runat="server"  CssClass="lbDadosGrid" 
+                 Visible="<%# (bool)this.Consulta %>"></asp:Label> 
+
+	  #when#
+
+     </ItemTemplate>
+
+       <ItemStyle  HorizontalAlign="Center"></ItemStyle>
+        </asp:TemplateField>
+			
+			 ]]>
+    </format>
+  </tdgridform>
+
+  <!-- Campos horizontais como primaryKey -->
+
+  <tdgridformpk>
+    <when condition="primarykey = 1 ">
+      <![CDATA[ 
+    <asp:BoundField DataField="{name_field}" HeaderText="{label}">
+      <ItemStyle HorizontalAlign="Center" Width="4%"></ItemStyle>
+    </asp:BoundField>
+     ]]>
+    </when>
+    <format>
+      <![CDATA[ #when# ]]>
+    </format>
+  </tdgridformpk>
+  <!-- Campos que são carregados - lista de seleção -->
+  <carregacombos>
+    <when condition=" ( type_input = 'SELECT' or type_input = 'RADIOBUTTONLIST' or type_input='CHECKBOXLIST' ) and has_query = 1 ">
+      <![CDATA[ 
+       DataTable dt_{name_field_camel} = ConnAccess.fetchDados("{field_query}", ConnAccess.getConn(false)); 
+       carregaCombo( txt{name_field_camel}, dt_{name_field_camel},"{field_query_val}","{field_query_text}",String.Empty); 
+      ]]>
+    </when>
+
+    <when condition=" ( type_input = 'SELECT' or type_input = 'RADIOBUTTONLIST' or type_input='CHECKBOXLIST' ) and has_list = 1 ">
+      <![CDATA[ 
+       carregaCombo( txt{name_field_camel}, Entities.{table_name_camel}.get_list_{name_field}() ,"Codigo","Nome",String.Empty); 
+      ]]>
+    </when>
+    <format>
+      <![CDATA[ 
+      #when#  
+      ]]>
+    </format>
+
+  </carregacombos>
+
+  <!-- Campos que são setados no início do carregamento (máscaras javascript) -->
+  <pageinit>
+    <when condition=" ( type = 'System.Int32' or type = 'System.Int64' or type = 'System.Int16' ) and type_input = 'TEXT'  ">
+      <![CDATA[  base.setSoNumero( txt{name_field_camel});   ]]>
+    </when>
+
+    <when condition=" ( type = 'System.Decimal' or type = 'System.Double' or type = 'System.Single' ) and type_input = 'TEXT'  ">
+      <![CDATA[  base.setSoDecimal( txt{name_field_camel}, {maxlength});   ]]>
+    </when>
+
+    <when condition="  type = 'System.DateTime'  and type_input = 'TEXT'  ">
+      <![CDATA[  base.setMaskData( txt{name_field_camel});   ]]>
+    </when>
+    <format>
+      <![CDATA[
+       #when#
+       ]]></format>
+  </pageinit>
+
+
+  <!-- Página Horizontal: Campos que são setados no início do carregamento de uma tela horizontal (máscaras javascript) -->
+  <horizontal_pageinit>
+    <when condition=" ( type = 'System.Int32' or type = 'System.Int64' or type = 'System.Int16' ) and type_input = 'TEXT'  ">
+      <![CDATA[  base.setSoNumero( Utilities.Format.localizaControl("txt{name_field_camel}", grw) );   ]]>
+    </when>
+
+    <when condition=" ( type = 'System.Decimal' or type = 'System.Double' or type = 'System.Single' ) and type_input = 'TEXT'  ">
+      <![CDATA[  base.setSoDecimal( Utilities.Format.localizaControl("txt{name_field_camel}", grw), {maxlength});   ]]>
+    </when>
+
+    <when condition="  type = 'System.DateTime'  and type_input = 'TEXT'  ">
+      <![CDATA[  base.setMaskData( Utilities.Format.localizaControl("txt{name_field_camel}", grw));   ]]>
+    </when>
+    <format>
+      <![CDATA[
+       #when#
+       ]]>
+    </format>
+  </horizontal_pageinit>
+  <!-- Página Horizontal: Campos que são carregados - lista de seleção -->
+  <horizontal_carregacombos>
+    <when condition=" ( type_input = 'SELECT' or type_input = 'RADIOBUTTONLIST' or type_input='CHECKBOXLIST' ) and has_query = 1 ">
+      <![CDATA[ 
+       DataTable dt_{name_field_camel} = ConnAccess.fetchDados("{field_query}", ConnAccess.getConn(false)); 
+       carregaCombo( (ListControl) Utilities.Format.localizaControl("txt{name_field_camel}", grw), dt_{name_field_camel},"{field_query_val}","{field_query_text}",String.Empty); 
+      ]]>
+    </when>
+
+    <when condition=" ( type_input = 'SELECT' or type_input = 'RADIOBUTTONLIST' or type_input='CHECKBOXLIST' ) and has_list = 1 ">
+      <![CDATA[ 
+       carregaCombo( (ListControl) Utilities.Format.localizaControl("txt{name_field_camel}", grw), Entities.{table_name_camel}.get_list_{name_field}() ,"Codigo","Nome",String.Empty); 
+      ]]>
+    </when>
+    <format>
+      <![CDATA[ 
+      #when#  
+      ]]>
+    </format>
+
+  </horizontal_carregacombos>
+
+
+
+  <!-- Operações com chaves primárias -->
+  <pk separator=",">
+    <when condition=" primarykey = 1 ">
+      <![CDATA[{name_field}]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+  </pk>
+  
+    <ifpk separator="&amp;&amp;">
+    <when condition=" primarykey = 1 ">
+      <![CDATA[{name_field} != String.Empty]
+      ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+
+  </ifpk>
+  
+  <tr_pks_hide >
+    <when condition=" primarykey = 1 ">
+      <![CDATA[ tr_{name_field}.Visible = false; 
+      ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+
+  </tr_pks_hide>
+  
+  <tr_pks_show >
+    <when condition=" primarykey = 1 ">
+      <![CDATA[ tr_{name_field}.Visible = true; 
+      ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+
+  </tr_pks_show>
+  
+  
+  <datarowpk separator=",">
+    <when condition=" primarykey = 1 ">
+      <![CDATA[
+            dr.Table.Columns["{name_field}"]
+      ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+
+  </datarowpk>
+
+  <horizontal_datarowpk separator=",">
+    <when condition=" primarykey = 1 ">
+      <![CDATA[
+            gDt.Columns["{name_field}"]
+      ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+
+  </horizontal_datarowpk>
+
+
+  <requestpk>
+    <when condition=" primarykey = 1 ">
+      <![CDATA[
+         string {name_field} = request("{name_field}");
+      ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+
+  </requestpk>
+  <filtropk separator=" +">
+    <when condition=" primarykey = 1 ">
+      <![CDATA[
+         " and {name_field} = "+{name_field}
+      ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+
+  </filtropk>
+  
+
+
+  <!-- Setando valor -->
+  <setvalor>
+    <when condition=" 1 = 1 ">
+      <![CDATA[ 
+         setValor(txt{name_field_camel}, ConnAccess.DBNullToNull(entidade["{name_field}"]));
+      ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+  </setvalor>
+
+  <!-- Página Horizontal: Setando valor -->
+  <horizontal_setvalor>
+    <when condition=" visible_onlist  = 1 ">
+      <![CDATA[ 
+          //{name_field}
+          setValor(Utilities.Format.localizaControl("txt{name_field_camel}", grw) , ConnAccess.DBNullToNull(entidade["{name_field}"]));  
+          setValor(Utilities.Format.localizaControl("lb_txt{name_field_camel}", grw) , ConnAccess.DBNullToNull(entidade["{name_field}"]));  
+      
+      ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+  </horizontal_setvalor>
+
+
+  
+
+
+  <!-- validação dos dados -->
+  <valida>
+    <when condition="required=1 and visible =1 and primarykey = 0 ">
+      <![CDATA[ 
+      if (! this.campoPreenchido(this.txt{name_field_camel}, "Informe {label}!")){
+      return false;
+      } ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+  </valida>
+
+  <horizontal_validarow>
+    <when condition="required=1 and visible =1 and primarykey = 0  ">
+      <![CDATA[ 
+      if (! this.campoPreenchido(Utilities.Format.localizaControl("txt{name_field_camel}", grw), "Informe {label}!")){
+      return false;
+      } ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+  </horizontal_validarow>
+
+
+
+  <!-- Obtendo dados -->
+  <obtemform>
+    <when condition="type='System.DateTime'">
+      <![CDATA[ getDate(txt{name_field_camel}) ]]>
+    </when>
+    <when condition="type='System.Int32' and primarykey = 0  ">
+      <![CDATA[ getInt32(txt{name_field_camel}, true) ]]>
+    </when>
+    <when condition="type='System.Int16' and primarykey = 0  ">
+      <![CDATA[ getInt16(txt{name_field_camel}, true) ]]>
+    </when>
+    <when condition="type='System.Int64' and primarykey = 0  ">
+      <![CDATA[ getInt64(txt{name_field_camel}, true) ]]>
+    </when>
+    <when condition="type='System.Decimal'">
+      <![CDATA[ getDec(txt{name_field_camel}, true) ]]>
+    </when>
+    <when condition="type='System.Double'">
+      <![CDATA[ getDbl(txt{name_field_camel}, true) ]]>
+    </when>
+    <when condition="type='System.Boolean'">
+      <![CDATA[ getBoolean(txt{name_field_camel}) ]]>
+    </when>
+    <when condition=" primarykey = 0 ">
+      <![CDATA[ getValor(txt{name_field_camel}) ]]>
+    </when>
+    <format>
+      <![CDATA[         dr["{name_field}"] = ConnAccess.NullToDBNull( #when# ); ]]></format>
+  </obtemform>
+
+
+  <!-- Obtendo dados -->
+  <horizontal_obtemform>
+    <when condition="visible_onlist  = 1 and type='System.DateTime'">
+      <![CDATA[ getDate(Utilities.Format.localizaControl("txt{name_field_camel}", grw)) ]]>
+  </when>
+  <when condition="visible_onlist  = 1 and  type='System.Int32' and primarykey = 0  ">
+    <![CDATA[ getInt32(Utilities.Format.localizaControl("txt{name_field_camel}", grw), true) ]]>
+  </when>
+  <when condition="visible_onlist  = 1 and type='System.Int16' and primarykey = 0  ">
+    <![CDATA[ getInt16(Utilities.Format.localizaControl("txt{name_field_camel}", grw), true) ]]>
+</when>
+<when condition="visible_onlist  = 1 and type='System.Int64' and primarykey = 0  ">
+  <![CDATA[ getInt64(Utilities.Format.localizaControl("txt{name_field_camel}", grw), true) ]]>
+  </when>
+  <when condition="visible_onlist  = 1 and type='System.Decimal'">
+    <![CDATA[ getDec(Utilities.Format.localizaControl("txt{name_field_camel}", grw), true) ]]>
+</when>
+<when condition="visible_onlist  = 1 and type='System.Double'">
+  <![CDATA[ getDbl(Utilities.Format.localizaControl("txt{name_field_camel}", grw), true) ]]>
+  </when>
+  <when condition="visible_onlist  = 1 and type='System.Boolean'">
+    <![CDATA[ getBoolean(Utilities.Format.localizaControl("txt{name_field_camel}", grw)) ]]>
+</when>
+<when condition=" primarykey = 0 ">
+  <![CDATA[ getValor(Utilities.Format.localizaControl("txt{name_field_camel}", grw)) ]]>
+    </when>
+    <format>
+      <![CDATA[         dr["{name_field}"] = ConnAccess.NullToDBNull( #when# ); ]]>
+    </format>
+  </horizontal_obtemform>
+
+
+  <!-- Listagem de dados -->
+  <tdgrid>
+    <when condition=" visible_onlist  = 1 and type='System.DateTime' ">
+      <![CDATA[ 
+      <asp:BoundField DataField="{name_field}" HeaderText="{label}" DataFormatString="{0:dd/MM/yyyy HH:mm}">
+			<ItemStyle HorizontalAlign="Center" ></ItemStyle>
+			</asp:BoundField>
+       ]]>
+    </when>
+    <when condition=" visible_onlist  = 1 and ( type='System.Decimal' or type='System.Double' or type='System.Single' ) ">
+      <![CDATA[ 
+      <asp:BoundField DataField="{name_field}" HeaderText="{label}" DataFormatString="{0:N2}">
+			<ItemStyle HorizontalAlign="Right" ></ItemStyle>
+			</asp:BoundField>
+       ]]>
+    </when>
+    <when condition=" visible_onlist  = 1 and ( type='System.Int32' or type='System.Int16' or type='System.Int64' ) ">
+      <![CDATA[ 
+      <asp:BoundField DataField="{name_field}" HeaderText="{label}" >
+			<ItemStyle HorizontalAlign="Right" ></ItemStyle>
+			</asp:BoundField>
+       ]]>
+    </when>
+    <when condition=" visible_onlist  = 1  ">
+      <![CDATA[ 
+      <asp:BoundField DataField="{name_field}" HeaderText="{label}" >
+			<ItemStyle HorizontalAlign="Left" ></ItemStyle>
+			</asp:BoundField>
+       ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+  </tdgrid>
+
+  <!-- Propriedades no entities -->
+  <lista_propriedade>
+    <when condition=" 1=1 ">
+      <![CDATA[ 
+          lst.Add( new Entities.SimplesCodigoNome("{name_field}","{label}") );  
+      ]]>
+    </when>
+    <format><![CDATA[#when#]]></format>
+  </lista_propriedade>
+
+  <funcao_listas>
+    <when condition=" has_list = 1 ">
+      <![CDATA[           
+          public static IList<SimplesCodigoNome> get_list_{name_field}(){
+          
+                  List<SimplesCodigoNome> lst = new List<SimplesCodigoNome>();
+                  
+                  lst = SimplesCodigoNome.generateByString("{field_query}");
+          
+                  return lst;
+          }
+          
+      ]]>
+    </when>
+    <format>
+      <![CDATA[
+             
+             
+            /// <summary> 
+            /// Traz lista de opções para o campo {label} - {name_field}
+            /// </summary> 
+            /// <returns></returns>             
+             #when#
+             
+             
+             ]]></format>
+  </funcao_listas>
+                  
+
+</actions>
+</root>

@@ -1,0 +1,33 @@
+﻿
+/* Calendário *******************/
+
+.func_agenda_next_prev{ background:#fff; height:43px; color:#52669D; font:30px Arial, Helvetica, sans-serif; font-weight:bold; }
+.bt_prev_func_agenda_painel{ width:65px; background: #003366 url(../img/bts_avancar_calendario.png) no-repeat top; height:43px; float:left; }
+.bt_prev_func_agenda_painel:hover, .bt_next_func_agenda_painel:hover{ background-color:#0073E6; }
+.bt_next_func_agenda_painel{ width:65px; background: #003366 url(../img/bts_avancar_calendario.png) no-repeat bottom; height:43px; float:left; }
+
+.dias_table_agenda_painel td{ width:140px; height:40px; color:#fff; font:30px Arial, Helvetica, sans-serif; font-weight:bold; margin-top:10px; }
+
+.dia_agenda_painel{ width:140px; height:140px; color:#54669D; font:100px Arial, Helvetica, sans-serif; font-weight:bold; background:#6476AA; } 
+.hoje_agenda_painel{ background:#fff; color:#E6E6E6;  }
+.mes_passado_agenda_painel{ background:#55679D; color:#6476AA; }
+
+.ico_add_evento_agenda{ background:url(../img/ico_add_envento_calendario.png) no-repeat top; width:19px; height:20px; text-indent:-990em; 
+	position:absolute; margin-left:-10px; margin-top:-8px; }
+.ico_add_evento_agenda_hoje{ background:url(../img/ico_add_evento_calendario_verde.png) no-repeat bottom; width:19px; 
+    height:20px; text-indent:-990em; 
+    position:absolute; margin-left:-10px; margin-top:-8px;   }
+
+.ico_ver_evento_agenda_hoje{ background:url(eye.png) no-repeat top; width:19px; height:20px; text-indent:-990em; 
+	position:absolute; margin-left:-10px; margin-top:-8px; }
+
+.compromissos_hoje_agenda{ width:138px; height:99px; overflow:auto; margin-top:0; position:absolute; margin-left:-40px; margin-top:-100px; }
+.compromissos_hoje_agenda li{ font:12px Arial, Helvetica, sans-serif; color: #3C3C3C; list-style: none; margin-top: 5px; }
+.compromissos_hoje_agenda a { text-decoration:none; } 
+.compromissos_hoje_agenda a:hover{ text-decoration:underline;} 
+
+.tr_agenda_topo{ background: #003366; }
+
+.cal_today{  background: #94A0C5 }
+
+/**********************************************    #55679D /

@@ -1,0 +1,298 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="GeneralMasterPage.master.cs"  Inherits="GeneralMasterPage" %>
+<%@ Register Src="controles/ucFiltroBasico.ascx" TagName="ucFiltroBasico" TagPrefix="uc2" %>
+<%@ Register
+    Src="controles/ucSubMenu.ascx" TagName="ucSubMenu" TagPrefix="uc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title></title>
+    <link href="images/style.css" rel="stylesheet" type="text/css" />
+    <link href="images/menu.css" rel="stylesheet" type="text/css" />
+    
+<link href="scripts/jquery-start-ui-1.8.16.custom/css/start/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
+   <style type="text/css">
+     .ctl00_MnuPrincipal_5
+     {
+     	font-size:smaller;
+     }
+            
+     .tbfiltro tr td{
+   font-size: 12px;
+   }
+   
+      #ui-datepicker-div{
+      width: 270px;
+   }
+   </style>
+
+<script src="scripts/validacampos.js" language="JavaScript" type="text/javascript"></script>
+
+    
+<script src="scripts/jquery-start-ui-1.8.16.custom/js/jquery-1.6.2.min.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/jquery-start-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js" language="JavaScript" type="text/javascript"></script>
+
+<%--       <script type="text/javascript" src="js/jquery/jquery-ui-1.9.2.custom/js/jquery-1.8.3.js"></script>
+                    <script type="text/javascript" src="js/jquery/jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.min.js"></script>
+                    <script type="text/javascript" src="js/jquery/jquery.click-calendario-1.0.js"></script>
+                    <script type="text/javascript" src="js/jquery/query.datepick-pt-BR.js"></script>
+   
+--%>
+
+
+<%--<script src="upload.js" language="JavaScript" type="text/javascript"></script>
+<script src="crono.js" language="JavaScript" type="text/javascript"></script>--%>
+
+   
+
+</head>
+<body  >
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="sm" runat="server" EnableScriptGlobalization="true"
+            EnableScriptLocalization="true" AsyncPostBackTimeout="9999"  >
+            
+            <Scripts>
+                  <asp:ScriptReference Path="~/webkit.js" />
+          </Scripts>
+            </asp:ScriptManager>
+        
+   <%--     #e75e47--%>
+        
+                  <asp:UpdateProgress ID="Progress" runat="server" DisplayAfter="0">
+                    <ProgressTemplate>
+                        <div id="divSpinner" style="background: #FFFFFF; z-index: 14; text-align: left; border: solid 2px #7E7E7E; position: absolute; left: 49%; width: 150px; height: 51px; top: 30%;">
+                            <img id="imgSpinner" alt="" src="images/squares-loader.gif" /> <span style="color: #7E7E7E">
+                                 .. Aguarde&nbsp;</span></div>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
+       
+       
+       <div class="content">
+       
+        <table style="background: rgb(255, 255, 255) none repeat scroll 0%; width: 100%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" border="0" cellpadding="0" cellspacing="0">
+	     <tbody><tr>
+	       <td class="td_topo_left">
+	       
+	       </td>
+	       <td class="td_topo_repeat">
+	       
+	       </td>
+	       <td class="td_topo_right">
+	       
+	       </td>
+
+	     </tr>
+	     <tr style="height: 90px;">
+	       <td class="td_meio_esquerda"></td>
+	       <td class="td_topo_meio" style="padding-top: 8px">
+	       <center>
+	       <table style="width: 99%;">
+	       <tbody>
+	
+	       
+	       <tr>
+	         <td class="sf_left" style="text-align: center;  background-image: none; background-color: #f7f7f7 " align="center">
+	          <center>
+
+				<a href="Default.aspx">
+				 <img src="images/logo2.png?t=0666" alt="Logo" border="0" align="center" />
+				</a>
+	         </center>
+	         </td>
+	         <td>
+	         <div id="nav">
+    				<ul id="current" runat="server" enableviewstate="false">
+						
+					</ul>
+
+				</div>
+	         <div class="sf_search" style="text-align: left;">
+	                <table>
+	                 <tbody><tr><td id="td_g_filtro" runat="server">
+                    
+                         </td>
+					<td style="padding-left: 90px;">
+                        <uc1:ucSubMenu ID="UcSubMenu1" runat="server" />
+
+                        
+					
+					
+					</td>
+					
+					</tr></tbody></table>
+				</div>
+	         </td>
+	       </tr>
+	       
+	       
+	       
+	       </tbody></table>
+	       
+	       
+	       </center>
+
+	       
+	       </td>
+	       <td class="td_meio_direita"></td>
+	     </tr>
+	     
+	       <tr>
+	       <td class="td_rodape_left">
+	       
+	       </td>
+	       <td class="td_rodape_repeat">
+	       
+	       </td>
+	       <td class="td_rodape_right">
+
+	       
+	       </td>
+	     </tr>
+	    </tbody></table>
+	       
+       <div class="lb_usuario">
+       <table  align="right"><tr>
+       
+       <td>
+        Olá<b> <asp:Label runat="server" ID="lb_usuario"></asp:Label></b>
+         <asp:Label runat="server" ID="lb_perfil"></asp:Label>
+         - Bem vindo ao sistema.
+        &nbsp;&nbsp;
+        </td>
+        <td>
+       <a href="listarMensagem.aspx"  id="a_msg" runat="server">Mensagens</a> 
+       </td>
+        <td>
+         <a href="sair.aspx">- Sair</a>
+        </td>
+        </tr></table>
+       </div>
+	         
+	       
+	       <div class="lb_filiais" style="display:none">
+       <table  align="right" style="display:none"><tr><td>
+        <b> Ver Filial: </b>
+        </td>
+        <td>
+            <asp:DropDownList ID="g_ddl_Filial" runat="server">
+            <asp:ListItem>--TODAS--</asp:ListItem>
+            <asp:ListItem>Doutor Pedrinho</asp:ListItem>
+            <asp:ListItem>Nilo Peçanha</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        </tr></table>
+       </div>
+	       
+	<div style="padding-left: 30px;" runat="server" id="divDescrModulo">
+					<table><tr><td style="display:none"><h2><b>Módulo:</b></h2></td><td> <h2 id="h2_modulo_descr" runat="server"></h2></td><td style="display:none"> -
+					</td>
+					<td ><h2><b id="b_tipo_cadastro" runat="server">Cadastro:</b></h2></td>
+					<td><h2 id="h2_tela_sistema" runat="server"></h2>
+					</td></tr></table>
+	</div>				
+     <table style="background: rgb(255, 255, 255) none repeat scroll 0%; width: 100%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" border="0" cellpadding="0" cellspacing="0">
+	     <tbody><tr>
+
+	       <td class="td_topo_left">
+	        &nbsp;
+	       </td>
+	       <td class="td_topo_repeat">
+	        &nbsp;
+	       </td>
+	       <td class="td_topo_right">
+	        &nbsp;
+	       </td>
+
+	     </tr>
+	     <tr>
+	       <td class="td_meio_esquerda"></td>
+	       <td class="td_topo_meio">
+                    
+
+                          
+                    
+                          <asp:UpdatePanel ID="UpdatePanel1" runat="server"><ContentTemplate>
+      
+                              <asp:ContentPlaceHolder ID="cph" runat="server">
+                            </asp:ContentPlaceHolder>
+                          
+                          
+                          
+
+                          
+                    </ContentTemplate></asp:UpdatePanel>
+              
+
+       
+	       </td>
+	       <td class="td_meio_direita"></td>
+	     </tr>
+	     
+	       <tr>
+	       <td class="td_rodape_left">
+
+	        &nbsp;
+	       </td>
+	       <td class="td_rodape_repeat">
+	        &nbsp;
+	       </td>
+	       <td class="td_rodape_right">
+	        &nbsp;
+	       </td>
+	     </tr>
+
+	    </tbody></table>
+    </div>
+       
+      
+        <iframe id="frameProcess" name="frameProcess" width="400" height="300"  style="display:none"></iframe>
+                
+    </form>
+    
+    <div id="div_form_voltar" ></div>
+    
+
+<script src="autocomplete.js" language="JavaScript" type="text/javascript"></script>
+    
+    
+    
+        <iframe id="frameSessao" name="frameSessao" width="400" height="300" style="display:none" ></iframe>
+    
+    
+</body>
+</html>
+<script src="prevent_enter.js?t=9999" language="JavaScript" type="text/javascript"></script>
+<script>
+
+
+
+
+
+function aplicaDatePicker(){    
+    
+                $(function() {
+                      $(".temData").datepicker({ changeYear: true  });
+
+                });
+}
+
+function countdown() {
+
+     
+	setTimeout('mantem_sessao_estado()',1000 * 60 * 2 ); //2 minutos. * 5   
+}
+function mantem_sessao_estado() {
+      var frameSessao = document.getElementById("frameSessao");
+      
+      frameSessao.src="mantemSessao.aspx";
+      
+	  setTimeout('mantem_sessao_estado()',1000 * 60 * 2); //2 minutos.
+      
+}
+//countdown();
+aplicaDatePicker();
+</script>
+
+
+

@@ -1,0 +1,648 @@
+/* project: internet market
+   design: luka cvrk (www.solucija.com) 
+   framework: Concept Nova (www.conceptnova.com) */
+   
+body { padding: 0; margin: 0; font: 0.7em Arial, sans-serif; line-height: 1.5em; background: #F0F0F0; color: #454545; }
+a { color: #0E4D8B; background: inherit; }
+a:hover { color: #000; background: inherit;}
+a.title { color: #B41A1A; background: #FFF; }
+
+h1 { font: bold 2em Arial, Sans-Serif; letter-spacing: -1px; padding: 16px 0 0 8px; margin: 0; }
+h2 { margin: 0; padding: 0; font: normal 1.6em Arial, Sans-Serif; letter-spacing: -1px; }
+h1 a { color: #FFF; background: inherit; }
+h1 a, h2 a { text-decoration: none; }
+h1 a:hover, h2 a:hover { color: #BFE1ED; background: inherit; }
+h3 { font: 90% Arial, Sans-Serif; margin: 0 0 10px 0; padding: 0; color: #5f5f5f; background: #FFF; }
+p {	margin: 0 0 0px 0; line-height: 1.5em; }
+form { margin: 0; }
+input.search { width: 199px; border: none; background: #FFF url(input.gif); padding: 4px; color: #808080; }
+input.submit { height: 24px; font-weight: bold; width: 80px; border: none; background: #D96855 url(button2.gif); padding: 3px; color: #535353; }
+
+
+/* layout
+   ------ */
+
+.content { 
+	margin: 10px auto;
+	width: 96%;
+	/* background: #FFF url(big_middle.gif) repeat-y; */
+	color: #454545;
+	
+}
+/***********************/
+
+.botaoPopup
+{
+	background: url('../img/application_cascade.png') no-repeat #FFFFFF;
+	height: 22px; width: 26px; border: solid 1px #CCCCCC;
+}
+
+
+/* Cronometro */
+.botaoplay
+{
+	background: url('../img/img_play.png') no-repeat;
+	width: 11px; height: 13px; border:none;
+}
+
+.botaopause
+{
+	background: url('../img/img_pause.png') no-repeat;
+	width: 11px; height: 13px; border:none;
+}
+.botaoreset
+{
+	background: url('../img/img_reset.png') no-repeat;
+	width: 11px; height: 13px; border:none;
+}
+/* Botões dos Grids */
+.botaodelete
+{
+	background: url('img_delete.png') no-repeat;
+	width: 16px; height: 16px; border:none;
+}
+
+.botaofile
+{
+	background: url('img_file.png') no-repeat;
+	width: 18px; height: 16px; border:none;
+}
+
+
+.logo {	padding: 18px 0 0 3px; }
+
+/* header */
+.header_top { background: #FEFEFE url(big_top.gif) no-repeat; color: #FFF; height: 15px; }
+.header { padding: 0px 10px 0 10px; }
+.header_bottom { clear: both; background: #FEFEFE url(big_bottom.gif) no-repeat; color: #FFF; height: 15px; }
+    
+/* navigation */
+#nav { width:100%; float:left; }
+#nav ul { margin:0; list-style:none; padding: 0; }
+#nav a, #nav strong, #nav span { float:left; display:block; color:#fff; padding: 7px 20px 4px 10px; background: #006A53 url(nav3.gif) no-repeat 100% 0px; text-decoration:none; font-weight: bold; }
+#nav a { float:none; }
+#nav li { float:left; color: #FFF; background: #006A53 url(nav3.gif) no-repeat 0px 0px; margin:0; padding:0 0 0 9px; }
+#nav .current { background: #006A53 url(nav3.gif) no-repeat 0 -41px; color: #535353; }
+#nav .current a { background: #006A53 url(nav3.gif) no-repeat 100% -41px; padding:7px 20px 4px 11px; color:#535353; }
+#nav a:hover { color:#333333; /*   background: #C43219 url(nav2.gif) no-repeat 100% 0px; */ }   
+
+/* Montando o novo topo para ocupar a página inteira */
+.td_topo_left
+{
+	background: url(ponta_esquerda_superior.png) no-repeat; width: 19px; height: 17px;
+}
+.td_topo_right
+{
+	background: url(ponta_direita_superior.png) no-repeat; width: 19px; height: 17px;
+}
+.td_topo_repeat
+{
+	background: url(repeat_topo.png) repeat-x; height: 17px;
+}
+
+
+.td_rodape_left
+{
+	background: url(ponta_esquerda_inferior.png) no-repeat; width: 19px; height: 17px;
+}
+.td_rodape_right
+{
+	background: url(ponta_direita_inferior.png) no-repeat; width: 19px; height: 17px;
+}
+.td_rodape_repeat
+{
+	background: url(repeat_rodape.png) repeat-x; height: 17px;
+}
+
+.td_meio_esquerda
+{
+	background: url(repeat_esquerda.png) repeat-y;
+}
+.td_meio_direita
+{
+	background: url(repeat_direita.png) repeat-y;
+}
+.tdGrid2 td
+{
+	background: white;
+}
+
+/* *************************************** */
+
+.sf_left {
+	/* float: left; */
+	width: 160px;
+	height: 77px;
+	/* background: #DCDCDC url(logobg2.gif) repeat-x;   */
+	background: #FFFFFF url(wet2.png) repeat-x;
+	color: #FFF;
+	border: 1px solid #969696;
+/*	border-bottom: 1px solid #969696; 
+	padding: 10px 0 0px 7px; */
+padding-left: 10px;
+}
+
+
+.lb_usuario
+{
+	color: #757575;
+	font-weight: bold;
+	
+	
+	width: 680px;
+	position: absolute;
+	z-index: 100;
+	top: 15px;
+	right: 90px; 
+	text-align: right;
+}
+.lb_filiais
+{
+    
+	position: absolute;	z-index: 101;
+	top: 42px;
+	right: 90px; 
+}
+.lb_usuario span
+{
+	
+}
+.lb_usuario a
+{
+	color: #333333; text-decoration: none;
+}
+.sf_right {
+	width: 537px;
+	float: right;
+}
+
+.sf_search {
+	clear: both;
+	background: #153259 url(searchbg.gif) repeat-x bottom left; 
+	color: #FFFFFF;
+	border-top: 1px solid #1A3D6D;
+	border-bottom: 1px solid #000;
+	padding-left: 30px;
+	margin-top: -2px;
+}
+.sf_search label
+{
+    color: #FFFFFF;
+}	
+.subheader {
+	padding: 8px;
+	background: #f0f0f0;
+	color: #808080;
+}
+
+.divTitGrupo
+{
+	display: none;
+	font-size: 12px;
+	padding-left: 20px;
+	margin-top: 15px;
+	font-weight: bold;
+}
+
+/* left side
+   --------- */
+
+.left {
+	float: left;
+	width: 595px;
+	margin: 0 0 10px 0;
+}
+
+	.box_top {
+		background: #F0F0F0 url(leftbox_top.gif) no-repeat;
+		color: #808080;
+		height: 40px;
+		width: 159px;
+	}
+	
+	.box_top h2 {
+		color: #808080;
+		background: inherit;
+		padding: 7px 0 0 5px;
+		margin: 0;
+	}
+	
+	.box {
+		border-left: 2px solid #F0F0F0;
+		border-right: 2px solid #F0F0F0;
+		padding: 0 4px 0 7px;
+		margin: 0;
+		width: 144px;
+		color: #595959;
+		background: #FFF;
+	}
+	
+	.box_bottom {
+		background: #FFF url(leftbox_bottom.gif) no-repeat;
+		color: #000;
+		height: 13px;
+		width: 160px;
+		margin: 0 0 7px 0;
+	}
+	
+		/* left and central column */
+		.left_side { float: left; width: 159px; padding: 0px 5px 8px 8px; }
+		.right_side { float: right; width: 405px; margin: 0 5px 0 0; text-align: justify; }
+		
+		.article { padding: 0 5px 0 0px; margin-bottom: 20px; }
+		
+	.grey_top { clear: both; width: 382px; background: #EDEDED url(grey_top.gif) no-repeat; color: #000; height: 5px; padding: 0; margin: 0px 0 0 6px; }
+	.grey { width: 362px; margin: 0 0 0 6px; padding: 10px; background: #EDEDED url(grey_bottom.gif) no-repeat bottom left; color: #808080;	}
+		
+	.grey a {
+		color: #C83C3C;
+		background: inherit;
+		font-weight: bold;
+	}
+	
+	.grey a:hover {
+		color: #000;
+		background: #EDEDED;
+	}
+	
+	.highlight {
+		padding: 5px 3px 5px 3px;
+		margin: 0 0 3px 0;
+		border-bottom: 1px solid #ccc;
+	}
+	
+		
+/* right side
+   ---------- */
+		
+.right { float: right; width: 170px; margin: 0 0 10px 0;}
+		
+img { float: left; margin: 0 9px 3px 0; }
+
+/* footer
+   ------ */
+
+.footer { 
+	clear: both; 
+	text-align: center;
+	color: #808080;
+	background: #f0f0f0;
+	padding: 10px 0 5px 0;
+	border-top: 1px solid #eee;
+}
+.footer p {	line-height: 2em; }
+.footer a {	color: #4F4F4F; background: #f0f0f0; border-bottom: 1px dotted #808080; text-decoration: none; } 
+
+.campoObrigatorio
+{
+	color: Red;
+}
+.LabelCampoObrigatorio
+{
+	color: Red; padding-left: 20px; float: left;
+}
+
+.lbDados
+{
+	color: #4682B4; /* #800000; */
+	font-weight: bold;
+	font-size: 11px;
+}
+
+select{
+	
+	background:url('bg_gray.png') repeat-x #F2F2F2;
+	font-size: 11px;
+	border: solid 1px #CCCCCC;
+		
+}
+[type=text],[type=password],[type=file],textarea
+{
+	
+	background:url('bg_gray.png') repeat-x #F2F2F2;
+	font-size: 11px;
+	border: solid 1px #CCCCCC;
+}
+
+
+
+label
+{
+	font-weight: bold;
+	color: #5D5D5D;
+	font-size: 11px;
+	
+}
+
+.divCollapsibleHeader
+{
+	background: url('th_header_cinza.png') repeat-x #ADADAD;
+	text-transform: uppercase;
+	color: #333333;
+	font-weight: bold;
+	font-size: 10px;
+	/*  #C43219  White */
+}
+.gridItemVerde
+{
+	background: url(bg_gray2.png) repeat-x #D1D1D1;
+	font-size: 10px;
+}
+.gridItem
+{
+	background: white;
+	font-size: 10px;
+}
+.gridItemSel
+{
+	
+	 background: url(thin_item_selecionado.png) repeat-x #666666;
+	 color: White;
+	font-size: 10px;
+}
+
+.gridDados2 tr td{
+	font-size: 9px;
+}
+.gridDados2 tr th{
+	font-size: 9px;
+}
+/* Botões da tela */
+#divButtom
+{
+	text-align: right;
+	padding-right: 25px;
+}
+.botao,.botaoPesquisar,.botaoNovo{
+	height: 24px; font-weight: bold; 
+	border: solid 1px #CCCCCC; background: url(bt_back_cinza.png) repeat-x #C9C9C9; padding: 3px; color: #535353;
+}
+
+
+.botaoExcluir
+{
+    height: 24px; font-weight: bold; 
+	border: solid 1px #CCCCCC; background: url(bt_back_cinza.png) repeat-x #C9C9C9; color: #990D0D;
+}
+.botaoExcel{
+	height: 24px; font-weight: bold; 
+	border: solid 1px #CCCCCC; background: url(bt_excel.png) no-repeat #C9C9C9; 
+	width: 84px; 
+	padding-left: 22px;
+	color: #535353;
+}
+.botao2
+{
+	height: 22px;  
+	border: solid 1px #CCCCCC; background: url(bg_back_botao2.png) repeat-x #DEDEDE;
+	 padding: 3px; color: #535353;
+}
+
+.botaoVoltar
+{
+	height: 22px; font-weight: bold; 
+	padding-left: 23px;
+	border: solid 1px #CCCCCC;
+	 background: url(bg_back_voltar.png) repeat-x #C9C9C9;
+	color: #535353;
+	font-size: 10px;
+
+}
+.divVoltar
+{
+	margin-top: 20px;
+	padding-left: 25px;
+	border-top: solid 1px #F5F5F5;
+	padding-top: 8px;
+}
+/* paginação */
+.gridPager a{
+  text-decoration: none;
+	padding-left: 1px;	
+	/* color: #E23A1D; */
+	color: #999999;
+	
+ 
+}
+.gridPager a:hover
+{
+	text-decoration: underline;
+}
+
+.gridPager
+{
+  font-size: 13px;	
+}
+.gridPager span
+{
+  font-weight: bold;
+	padding-left: 1px;
+	/*color: #751E0F;*/color: #666666;
+	
+}
+
+
+
+.gridDados
+{
+	border: solid 1px #CCCCCC;
+}
+
+.gridDados tr td
+{
+	font-size: 10px;
+}
+/* mensagem que aparece na tela após o cadastro */
+.dvMensagem
+{
+    font-size: 14px;
+    color: Red;
+    text-align: center;
+    font-weight: bold;	
+}
+.tdNomeArquivo
+{
+	 text-align: left;
+	 background: #F4F4F4;
+	 padding-left: 3px;
+    font-size: 10px;
+}
+.link_envia_foto
+{
+    font-size: 10px;
+	
+}
+
+
+/* --------------- */
+.botao_fechar
+{
+border: solid 1px white; background: #D1CEC5;
+      color: Black; width: 29px; padding-top: 1px; font-weight: bold;
+    	
+}
+/* input[disabled]  */
+.txt_disabled{
+	border: 1px solid #CCCCCC;
+	background-color: #ddd;
+}
+
+.div_filtro_avancado
+{
+    border: solid 2px #CCCCCC;
+    width: 750px;
+    position: absolute;
+    height: 500px;
+    overflow: scroll;
+    left: 234px;
+    top: 125px;
+    background: #FFFFFF;
+}
+.div_filtro_avancado label
+{
+    color: #535353;
+    text-transform: uppercase;
+}
+.div_filtro_avancado table tr th{
+   background: #FFFFD5;
+}
+
+/* --------------------------  */
+
+.div_filtro_avancado2
+{
+    width: auto;
+    
+    background: #FFFFFF;
+}
+.div_filtro_avancado2 label
+{
+    color: #535353;
+    text-transform: uppercase;
+}
+.div_filtro_avancado2 table tr th{
+   background: #CFCFCF;
+}
+
+
+.td_g_filtro{
+    color: #535353;
+}
+.tr_g_alt_filtro td{
+    background: #F0F0F0;
+}
+.rd_glob_filtroavancado label
+{
+    color: #FFEFB0;
+    font-size: 10px;
+}
+.dv_qtde_registros
+{
+    padding-top: 20px;
+}
+.divExplicaFiltro{ 
+  background:#F4F4F4 ;
+  margin-bottom: 6px;
+  text-align: left;
+  padding-left: 20px;
+}
+.ordenacao
+{
+    text-transform: uppercase;
+    color: #401500;
+    font-weight: bold;
+}
+
+.div_pesquisar
+{
+    background: url('thin_back_cinza.png') repeat-x #FFFFFF;
+}
+.tr_resumo th
+{
+    
+	background: url(bg_gray2.png) repeat-x #D1D1D1;
+}
+
+.tr_resumo th  a{
+    
+    text-decoration: none;
+}
+
+
+.td_alter td
+{
+    background: #FCFCFC;
+}
+
+.watermarked
+{
+    color: #8B8989;
+}
+
+.txtValorNumerico
+{
+    text-align: right;
+    font-size: 10px;
+}
+.divBox tr td{
+     text-align: left;
+}
+
+.tr_total_1 td{
+    background: #F2F2F2;
+}
+.tr_total_2 td{
+    background: #CFCFCF;
+}
+
+.tr_total_3 td{
+    background: #E4E4E4;
+}
+
+.tr_total_4 td{
+    background: #EEEEEE;
+}
+.gridItemModulo td
+{
+    font-weight: bold;
+    background: #EEE9E9;
+    color:Black;
+}
+
+
+.gridItemMenu td
+{
+    font-weight: bold;
+    background: #D3D3D3;
+}
+
+.gridSubItemMenu td
+{
+    padding-left: 15px;
+    background: #FFFFFFF;
+}
+.gridItemFuncionalidade td
+{
+    background: #EEEEEE;
+}
+
+
+.gridItemVermelho td
+{
+    
+	background: url(td_red.png) repeat-x #FF0000;
+	font-weight: bold;
+}
+
+.gridItemGreen td
+{
+    
+	background: url(td_green.png) repeat-x #227B22;
+	font-weight: bold;
+}
+
+.tb_dados_blank tr td
+{
+    background: #FFFFFF;
+}
+
